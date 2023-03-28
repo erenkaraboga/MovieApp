@@ -1,4 +1,4 @@
-package com.example.movie_application_eren_karaboga.ui.movie
+package com.example.movie_application_eren_karaboga.presentation.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import com.example.movie_application_eren_karaboga.R
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
-class MovieFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +22,7 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false)
+        return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
 

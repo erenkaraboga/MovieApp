@@ -1,8 +1,8 @@
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movie_application_eren_karaboga.data.Movie
-import com.example.movie_application_eren_karaboga.remote.MovieInterface
-import com.example.movie_application_eren_karaboga.utils.Constants
+import com.example.movie_application_eren_karaboga.data.models.Movie
+import com.example.movie_application_eren_karaboga.data.remote.service.MovieInterface
+import com.example.movie_application_eren_karaboga.base.utils.Constants
 
 class MoviePaging(val language: String, val movieInterface: MovieInterface) :
     PagingSource<Int, Movie>() {

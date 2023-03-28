@@ -1,7 +1,7 @@
-package com.example.movie_application_eren_karaboga.hilt
+package com.example.movie_application_eren_karaboga.config
 
-import com.example.movie_application_eren_karaboga.remote.MovieInterface
-import com.example.movie_application_eren_karaboga.utils.Constants
+import com.example.movie_application_eren_karaboga.data.remote.service.MovieInterface
+import com.example.movie_application_eren_karaboga.base.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

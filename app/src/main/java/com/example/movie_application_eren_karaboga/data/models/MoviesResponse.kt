@@ -1,4 +1,4 @@
-package com.example.movie_application_eren_karaboga.data
+package com.example.movie_application_eren_karaboga.data.models
 
 data class MoviesResponse(
     val page: Int,

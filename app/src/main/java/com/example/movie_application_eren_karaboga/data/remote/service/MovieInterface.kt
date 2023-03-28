@@ -1,7 +1,6 @@
-package com.example.movie_application_eren_karaboga.remote
+package com.example.movie_application_eren_karaboga.data.remote.service
 
-import com.example.movie_application_eren_karaboga.data.MoviesResponse
-import org.intellij.lang.annotations.Language
+import com.example.movie_application_eren_karaboga.data.models.MoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
