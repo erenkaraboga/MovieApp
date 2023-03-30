@@ -1,4 +1,4 @@
-package com.example.movie_application_eren_karaboga.config
+package com.example.movie_application_eren_karaboga.config.di
 
 import com.example.movie_application_eren_karaboga.data.remote.service.MovieInterface
 import com.example.movie_application_eren_karaboga.base.utils.Constants
@@ -17,6 +17,5 @@ object HiltModules {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(MovieInterface::class.java)
-
     }
 }
