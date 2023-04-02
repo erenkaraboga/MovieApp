@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie_application_eren_karaboga.domain.models.Movie
 import com.example.movie_application_eren_karaboga.presentation.movie.MovieViewModel
@@ -22,10 +23,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val verticalList = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         movieAdapter=MovieAdapter()
         recyclerView.adapter =movieAdapter
+        recyclerView.layoutManager = verticalList
         viewModel.getObserverLiveData().observe(this, object: Observer<Movie> {
             override fun onChanged(t: Movie?) {
                 if(t!=null){

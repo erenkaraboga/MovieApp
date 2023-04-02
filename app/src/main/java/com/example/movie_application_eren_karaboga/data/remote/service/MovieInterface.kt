@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MovieInterface {
-    @GET("3/movie/popular?api_key=689569fe986992861685b815ae2e5a13")
+    @GET("3/movie/popular")
      fun getAllMovies(
         @Query("page") query:String,
     ): Call<Movie>
