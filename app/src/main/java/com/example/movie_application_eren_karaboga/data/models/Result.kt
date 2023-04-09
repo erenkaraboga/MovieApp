@@ -1,10 +1,13 @@
-package com.example.movie_application_eren_karaboga.domain.models
+package com.example.movie_application_eren_karaboga.data.models
+
 
 import com.google.gson.annotations.SerializedName
 
-data class Movie(
+data class Result(
+    @SerializedName("page")
     val page: Int,
-    val results: List<Result>,
+    @SerializedName("results")
+    val results: List<Movie>,
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")

@@ -11,11 +11,11 @@
         android:layout_height="400dp" />
 
     <TextView
-        android:fontFamily="@font/feral"
+        android:fontFamily="@font/feral_light"
         android:ellipsize="end"
         android:singleLine="true"
         android:paddingTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/movieNameColor"
         android:textAlignment="center"
         android:id="@+id/tvMovieName"
         android:layout_width="match_parent"

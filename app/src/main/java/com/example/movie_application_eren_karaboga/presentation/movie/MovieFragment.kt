@@ -5,12 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.databinding.FragmentMovieBinding
-import com.example.movie_application_eren_karaboga.domain.models.Movie
 import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,44 +17,46 @@ class MovieFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var movieAdapter: MovieAdapter
     val viewModel by lazy {
-        ViewModelProvider(this, defaultViewModelProviderFactory).get(MovieViewModel::class.java)
+        ViewModelProvider(this, defaultViewModelProviderFactory)[MovieViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        initRecyclerView()
 
-        _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        viewModel.getObserverLiveData().observe(viewLifecycleOwner
+        ) { movieList ->
+            if (movieList != null) {
+                movieAdapter.setList(movieList.results);
+            }
+        }
+        viewModel.loadPopularData("1");
+        configureRecyclerView()
 
-        val verticalList = LinearLayoutManager(
+        return binding.root
+    }
+
+    private fun configureRecyclerView() {
+        binding.apply {
+            carouselRecyclerview.adapter = movieAdapter
+            carouselRecyclerview.setAlpha(true)
+            carouselRecyclerview.set3DItem(true)
+            carouselRecyclerview.setIntervalRatio(0.7f)
+            carouselRecyclerview.setInfinite(true)
+        }
+    }
+
+    private fun initRecyclerView() {
+        val manager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
         )
         val recyclerView = binding.carouselRecyclerview
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
-        recyclerView.layoutManager = verticalList
-        viewModel.getObserverLiveData().observe(viewLifecycleOwner, object : Observer<Movie> {
-            override fun onChanged(t: Movie?) {
-                if (t != null) {
-                    movieAdapter.setList(t.results);
-                }
-            }
-
-        })
-        viewModel.loadPopularData("1");
-        binding.apply {
-            carouselRecyclerview.adapter = movieAdapter
-            carouselRecyclerview.setAlpha(true)
-            carouselRecyclerview.set3DItem(true)
-            carouselRecyclerview.setIntervalRatio(0.7f)
-
-            carouselRecyclerview.setInfinite(true)
-        }
-        return binding.root
+        recyclerView.layoutManager = manager
     }
-
-
 }
