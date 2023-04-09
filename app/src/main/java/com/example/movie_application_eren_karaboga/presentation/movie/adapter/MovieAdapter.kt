@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.databinding.MovieItemBinding
@@ -20,11 +22,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MyCustomHolder>() {
 
     inner class MyCustomHolder(private val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Result) {
-            binding.movieNameTv.text = data.title
-            binding.durationTv.text = data.releaseDate
-            binding.ratingTv.text = data.voteAverage.toString()
-            binding.genreTv.text = data.originalLanguage
-            Glide.with(binding.posterIv).load(Constants.posterUrl + data.posterPath).into(binding.posterIv)
+            binding.tvMovieName.text = data.originalTitle
+            Glide.with(binding.IvMovie).load(Constants.posterUrl + data.posterPath).transform(CenterInside(),
+                RoundedCorners(30)
+            ).into(binding.IvMovie)
         }
     }
 

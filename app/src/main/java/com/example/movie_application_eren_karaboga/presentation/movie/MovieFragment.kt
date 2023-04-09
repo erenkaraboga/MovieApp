@@ -16,35 +16,46 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
-    private var _binding : FragmentMovieBinding ? = null
+    private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
-    private  lateinit var  movieAdapter : MovieAdapter
+    private lateinit var movieAdapter: MovieAdapter
     val viewModel by lazy {
-        ViewModelProvider(this,defaultViewModelProviderFactory).get(MovieViewModel::class.java)
+        ViewModelProvider(this, defaultViewModelProviderFactory).get(MovieViewModel::class.java)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = FragmentMovieBinding.inflate(inflater,container,false)
+        _binding = FragmentMovieBinding.inflate(inflater, container, false)
 
-        _binding = FragmentMovieBinding.inflate(inflater,container,false)
+        _binding = FragmentMovieBinding.inflate(inflater, container, false)
 
-        val verticalList = LinearLayoutManager(context,
-            LinearLayoutManager.VERTICAL,false)
-        val recyclerView = binding.recyclerView
-        movieAdapter=MovieAdapter()
-        recyclerView.adapter =movieAdapter
+        val verticalList = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL, false
+        )
+        val recyclerView = binding.carouselRecyclerview
+        movieAdapter = MovieAdapter()
+        recyclerView.adapter = movieAdapter
         recyclerView.layoutManager = verticalList
-        viewModel.getObserverLiveData().observe(viewLifecycleOwner, object: Observer<Movie> {
+        viewModel.getObserverLiveData().observe(viewLifecycleOwner, object : Observer<Movie> {
             override fun onChanged(t: Movie?) {
-                if(t!=null){
+                if (t != null) {
                     movieAdapter.setList(t.results);
                 }
             }
 
         })
         viewModel.loadPopularData("1");
+        binding.apply {
+            carouselRecyclerview.adapter = movieAdapter
+            carouselRecyclerview.setAlpha(true)
+            carouselRecyclerview.set3DItem(true)
+            carouselRecyclerview.setIntervalRatio(0.7f)
+
+            carouselRecyclerview.setInfinite(true)
+        }
         return binding.root
     }
 

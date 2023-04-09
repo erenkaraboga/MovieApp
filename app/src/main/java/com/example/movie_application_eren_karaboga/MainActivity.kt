@@ -22,9 +22,6 @@ import retrofit2.Call
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private  lateinit var  movieAdapter : MovieAdapter
-    val viewModel by lazy {
-         ViewModelProvider(this,defaultViewModelProviderFactory).get(MovieViewModel::class.java)
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        binding = ActivityMainBinding.inflate(layoutInflater)
