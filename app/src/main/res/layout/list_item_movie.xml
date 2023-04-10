@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
 
-    <ImageView
+    <com.jackandphantom.carouselrecyclerview.view.ReflectionImageView
         android:id="@+id/IvMovie"
         android:layout_width="300dp"
         android:layout_height="400dp" />
