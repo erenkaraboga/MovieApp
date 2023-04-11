@@ -59,12 +59,12 @@ class DetailsFragment : Fragment() {
         ) { movieList ->
             if (movieList != null) {
                 genreAdapter.setList(movieList.genres)
-                binding.movieNameTv.text = movieList.title
-                binding.durationTv.text = movieList.releaseDate
-                binding.ratingTv.text = movieList.voteAverage.toString()
-                binding.genreTv.text = movieList.originalLanguage
-                binding.movieDescTv.text = movieList.overview
-                binding.posterIv.loadPosterUrl(movieList.posterPath)
+                binding.TvMovieName.text = movieList.title
+                binding.TvDuration.text = movieList.releaseDate
+                binding.TvRating.text = movieList.voteAverage.toString()
+                binding.TvGenre.text = movieList.originalLanguage
+                binding.TvDescMovie.text = movieList.overview
+                binding.IvPoster.loadPosterUrl(movieList.posterPath)
             }
         }
         viewModel.loadPopularData(movieId)

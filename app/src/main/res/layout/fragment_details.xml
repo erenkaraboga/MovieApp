@@ -30,7 +30,7 @@
                     app:cardCornerRadius="20dp">
 
                     <ImageView
-                        android:id="@+id/posterIv"
+                        android:id="@+id/IvPoster"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY" />
@@ -75,7 +75,7 @@
                                 android:textColor="@color/movieDetailTextColor" />
 
                             <TextView
-                                android:id="@+id/genreTv"
+                                android:id="@+id/TvGenre"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/feral_bold"
@@ -87,7 +87,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/durationIv"
+                        android:id="@+id/IvDuration"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="20dp"
@@ -118,7 +118,7 @@
                                 android:textColor="@color/movieDetailTextColor" />
 
                             <TextView
-                                android:id="@+id/durationTv"
+                                android:id="@+id/TvDuration"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/feral_bold"
@@ -131,7 +131,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/ratingIv"
+                        android:id="@+id/IvRating"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="20dp"
@@ -162,7 +162,7 @@
                                 android:textColor="@color/movieDetailTextColor" />
 
                             <TextView
-                                android:id="@+id/ratingTv"
+                                android:id="@+id/TvRating"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/feral_bold"
@@ -185,7 +185,7 @@
                 android:orientation="horizontal" />
 
             <TextView
-                android:id="@+id/movieNameTv"
+                android:id="@+id/TvMovieName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/feral_bold"
@@ -194,7 +194,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/movieDescTv"
+                android:id="@+id/TvDescMovie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/feral_light"
