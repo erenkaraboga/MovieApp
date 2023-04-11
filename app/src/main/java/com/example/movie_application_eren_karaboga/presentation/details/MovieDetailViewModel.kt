@@ -10,19 +10,12 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MovieDetailViewModel @Inject constructor(private val movieRepository: MovieRepository):ViewModel(){
-    var movieList  : MutableLiveData<MovieDetail>
-    init {
-        movieList = MutableLiveData()
+class MovieDetailViewModel @Inject constructor(private val movieRepository: MovieRepository) :
+    ViewModel() {
+    var movieList: MutableLiveData<MovieDetail> = MutableLiveData()
 
+    fun getObserverLiveData(): MutableLiveData<MovieDetail> = movieList
 
-    }
-    fun getObserverLiveData(): MutableLiveData<MovieDetail> {
-
-        return movieList
-    }
-
-    fun loadPopularData(movieId: Int){
-        movieRepository.getMovieDetail(movieId,movieList)
-    }}
+    fun loadPopularData(movieId: Int) = movieRepository.getMovieDetail(movieId, movieList)
+}
 

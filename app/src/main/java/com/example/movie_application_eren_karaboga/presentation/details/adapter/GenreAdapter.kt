@@ -42,9 +42,7 @@ class GenreAdapter() :
 
         fun bind(genre: Genre) {
             this.genre = genre
-            binding.tvGenreType.text =genre.name
-           // binding.tvMovieName.text = movie.originalTitle
-            //binding.IvMovie.loadPosterUrl(movie.posterPath)
+            binding.tvGenreType.text = genre.name
         }
 
     }

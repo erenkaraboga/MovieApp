@@ -15,7 +15,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:paddingTop="10dp"
-        android:textColor="@color/movieNameColor"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:id="@+id/tvMovieName"
         android:layout_width="match_parent"

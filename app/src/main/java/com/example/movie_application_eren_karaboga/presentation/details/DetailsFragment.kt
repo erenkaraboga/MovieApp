@@ -33,7 +33,13 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        genreAdapter = GenreAdapter()
+        setAdapter()
+        setRecyclerView()
+        bindViewModel(movieId)
+        return binding.root
+    }
+
+    private fun setRecyclerView() {
         val manager = LinearLayoutManager(
             context,
             LinearLayoutManager.HORIZONTAL, false
@@ -41,9 +47,10 @@ class DetailsFragment : Fragment() {
         val recyclerView = binding.genreRecyclerView
         recyclerView.adapter = genreAdapter
         recyclerView.layoutManager = manager
+    }
 
-        bindViewModel(movieId)
-        return binding.root
+    private fun setAdapter() {
+        genreAdapter = GenreAdapter()
     }
 
     private fun bindViewModel(movieId: Int) {

@@ -8,5 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="statusbar">#25252F</color>
-    <color name="movieNameColor">#ffffff</color>
+    <color name="cardBackroundColor">#2A2A35</color>
+    <color name="cardBorderColor">#393942</color>
+    <color name="movieDetailTextColor">#919192</color>
+    <color name="ratingTextColor">#f59827</color>
+
+
 </resources>

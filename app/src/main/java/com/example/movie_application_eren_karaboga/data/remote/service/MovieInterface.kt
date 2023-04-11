@@ -9,12 +9,12 @@ import retrofit2.http.Query
 
 interface MovieInterface {
     @GET("3/movie/popular")
-     fun getAllMovies(
-        @Query("page") query:String,
+    fun getAllMovies(
+        @Query("page") query: String,
     ): Call<Result>
 
     @GET("3/movie/{movie_id}")
-     fun getMovieDetail(@Path("movie_id") movie_id: Int): Call<MovieDetail>
+    fun getMovieDetail(@Path("movie_id") movie_id: Int): Call<MovieDetail>
 
 }
 

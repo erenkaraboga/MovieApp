@@ -8,17 +8,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(private val movieRepository: MovieRepository):ViewModel(){
-    var movieList  : MutableLiveData<Result>
-    init {
-        movieList =MutableLiveData()
-    }
-    fun getObserverLiveData():MutableLiveData<Result>{
-        return movieList
-    }
+class MovieViewModel @Inject constructor(private val movieRepository: MovieRepository) :
+    ViewModel() {
+    var movieList: MutableLiveData<Result> = MutableLiveData()
 
-    fun loadPopularData(page: String){
-       movieRepository.getPopularMovies(page,movieList)
-    }
+    fun getObserverLiveData(): MutableLiveData<Result> = movieList
+
+    fun loadPopularData(page: String) = movieRepository.getPopularMovies(page, movieList)
 
 }

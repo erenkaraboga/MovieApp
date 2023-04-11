@@ -35,6 +35,7 @@ object HiltModules {
             .build()
         return@Interceptor chain.proceed(request)
     }
+
     @Singleton
     @Provides
     fun provideRetrofitInterface(): MovieInterface {
