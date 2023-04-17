@@ -13,10 +13,17 @@
         <action
             android:id="@+id/action_movieFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_movieFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.movie_application_eren_karaboga.presentation.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

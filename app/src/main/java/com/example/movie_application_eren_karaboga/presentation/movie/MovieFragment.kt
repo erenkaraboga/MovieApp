@@ -1,6 +1,7 @@
 package com.example.movie_application_eren_karaboga.presentation.movie
 
-import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
+
+import com.example.movie_application_eren_karaboga.presentation.search.SearchFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +10,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
+import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.databinding.FragmentMovieBinding
+
 import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
+import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
+
 
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,11 +31,24 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        listenSearchTap()
+        bindViewModel()
+        viewModel.loadPopularData("1");
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setAdapter()
         initRecyclerView()
         configureRecyclerView()
-        bindViewModel()
-        return binding.root
+
+    }
+    fun listenSearchTap(){
+        binding.imageView2.setOnClickListener{
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.activity_main, SearchFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
 
     private fun bindViewModel() {
@@ -41,7 +59,7 @@ class MovieFragment : Fragment() {
                 movieAdapter.setList(movieList.results);
             }
         }
-        viewModel.loadPopularData("1");
+
     }
 
     private fun configureRecyclerView() {
@@ -65,8 +83,8 @@ class MovieFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        movieAdapter = MovieAdapter(object : MovieAdapter.ClickListener {
-            override fun click(movieId: Int) {
+        movieAdapter = MovieAdapter(object : MovieAdapter.OnClickListener {
+            override fun onclick(movieId: Int) {
                 navigateDetailPage(movieId)
             }
         })
@@ -74,7 +92,7 @@ class MovieFragment : Fragment() {
 
     private fun navigateDetailPage(movieId: Int) {
         val bundle = Bundle()
-        bundle.putInt("movie_id", movieId)
+        bundle.putInt(Constants.MOVIE_ID, movieId)
         val movieDetailFragment = DetailsFragment()
         movieDetailFragment.arguments = bundle
         val transaction = parentFragmentManager.beginTransaction()

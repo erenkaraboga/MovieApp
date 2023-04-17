@@ -34,4 +34,15 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
             }
         })
     }
+    fun searchMovie(query:String, liveData: MutableLiveData<Result>){
+        movieInterface.searchMovie(query).enqueue(object:Callback<Result>{
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                liveData.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<Result>, t: Throwable) {
+                liveData.postValue(null)
+            }
+        })
+    }
 }

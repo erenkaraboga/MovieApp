@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.base.extensions.loadPosterUrl
-import com.example.movie_application_eren_karaboga.data.models.Genre
+import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.databinding.FragmentDetailsBinding
 import com.example.movie_application_eren_karaboga.presentation.movie.adapter.GenreAdapter
-import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -25,7 +24,7 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieId = arguments?.getInt("movie_id")!!
+        movieId = arguments?.getInt(Constants.MOVIE_ID)!!
     }
 
     override fun onCreateView(
@@ -33,10 +32,14 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        setAdapter()
-        setRecyclerView()
         bindViewModel(movieId)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setAdapter()
+        setRecyclerView()
+
     }
 
     private fun setRecyclerView() {
@@ -67,6 +70,6 @@ class DetailsFragment : Fragment() {
                 binding.IvPoster.loadPosterUrl(movieList.posterPath)
             }
         }
-        viewModel.loadPopularData(movieId)
+        viewModel.getMovieDetail(movieId)
     }
 }

@@ -8,7 +8,7 @@ import com.example.movie_application_eren_karaboga.base.extensions.loadPosterUrl
 import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
 import com.example.movie_application_eren_karaboga.data.models.Movie
 
-class MovieAdapter(private val listener: ClickListener) :
+class MovieAdapter(private val listener: OnClickListener) :
     RecyclerView.Adapter<MovieAdapter.MyCustomHolder>() {
 
     private var data: List<Movie>? = null
@@ -32,7 +32,7 @@ class MovieAdapter(private val listener: ClickListener) :
     override fun getItemCount(): Int = data?.size ?: 0
 
     class MyCustomHolder(
-        private val listener: ClickListener,
+        private val listener: OnClickListener,
         private val binding: ListItemMovieBinding,
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
@@ -49,12 +49,12 @@ class MovieAdapter(private val listener: ClickListener) :
         }
 
         override fun onClick(p0: View?) {
-            listener.click(movie.id)
+            listener.onclick(movie.id)
         }
     }
 
-    interface ClickListener {
-        fun click(movieId: Int)
+    interface OnClickListener {
+        fun onclick(movieId: Int)
     }
 
 }

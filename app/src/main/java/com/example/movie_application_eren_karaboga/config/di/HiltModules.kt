@@ -21,8 +21,12 @@ import javax.inject.Singleton
 @Module
 object HiltModules {
 
-    private val loggingInterceptor =
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    @Singleton
+    @Provides
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        return  HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
     private var clientInterceptor = Interceptor { chain: Interceptor.Chain ->
         val url = chain.request()
             .url
@@ -38,17 +42,19 @@ object HiltModules {
 
     @Singleton
     @Provides
-    fun provideRetrofitInterface(): MovieInterface {
-        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(getHttpClient())
+    fun provideRetrofitInterface(okHttpClient: OkHttpClient): MovieInterface {
+        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(MovieInterface::class.java)
     }
 
-    private fun getHttpClient(): OkHttpClient {
+    @Singleton
+    @Provides
+     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(clientInterceptor).addInterceptor(loggingInterceptor)
+            .addInterceptor(clientInterceptor).addInterceptor(httpLoggingInterceptor)
             .build()
     }
 }

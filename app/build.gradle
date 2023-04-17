@@ -26,13 +26,13 @@ android {
     }
     buildTypes {
         release {
-            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
             buildConfigField "String", "api_key", '"689569fe986992861685b815ae2e5a13"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
             buildConfigField "String", "api_key", '"689569fe986992861685b815ae2e5a13"'
         }
     }
