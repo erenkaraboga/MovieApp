@@ -1,5 +1,6 @@
 package com.example.movie_application_eren_karaboga.presentation.movie
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.movie_application_eren_karaboga.data.remote.repositories.MovieRepository
@@ -10,11 +11,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
-    private var movieList: MutableLiveData<Result> = MutableLiveData()
+    private var movieList: LiveData<Result> = MutableLiveData()
 
-    fun getObserverLiveData(): MutableLiveData<Result> = movieList
+    fun getObserverLiveData(): LiveData<Result> = movieList
 
-    fun loadPopularData(page: String) = movieRepository.getPopularMovies(page, movieList)
-
-    
+    fun loadPopularData(page: String) = movieRepository.getPopularMovies(
+        page,
+        movieList as MutableLiveData<Result>
+    )
 }

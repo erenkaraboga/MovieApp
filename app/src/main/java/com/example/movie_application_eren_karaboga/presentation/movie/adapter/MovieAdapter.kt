@@ -4,7 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movie_application_eren_karaboga.base.extensions.loadPosterUrl
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.movie_application_eren_karaboga.R
+import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
+import com.example.movie_application_eren_karaboga.base.utils.Constants.posterUrl
 import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
 import com.example.movie_application_eren_karaboga.data.models.Movie
 
@@ -45,7 +50,11 @@ class MovieAdapter(private val listener: OnClickListener) :
         fun bind(movie: Movie) {
             this.movie = movie
             binding.tvMovieName.text = movie.originalTitle
-            binding.IvMovie.loadPosterUrl(movie.posterPath)
+            Glide.with(binding.IvMovie)
+                .load(movie.posterPath.loadFullImage())
+                .transform(CenterInside(), RoundedCorners(30)).placeholder(R.drawable.loading_image).error(
+                R.drawable.error_image)
+                .into(binding.IvMovie)
         }
 
         override fun onClick(p0: View?) {

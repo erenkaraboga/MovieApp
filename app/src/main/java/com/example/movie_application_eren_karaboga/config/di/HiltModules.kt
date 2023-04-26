@@ -24,20 +24,24 @@ object HiltModules {
     @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return  HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    private var clientInterceptor = Interceptor { chain: Interceptor.Chain ->
-        val url = chain.request()
-            .url
-            .newBuilder()
-            .addQueryParameter("api_key", BuildConfig.api_key)
-            .build()
-        val request: Request = chain.request()
-            .newBuilder()
-            .url(url)
-            .build()
-        return@Interceptor chain.proceed(request)
+    @Singleton
+    @Provides
+    fun provideInterceptor(): Interceptor {
+        return Interceptor { chain: Interceptor.Chain ->
+            val url = chain.request()
+                .url
+                .newBuilder()
+                .addQueryParameter("api_key", BuildConfig.api_key)
+                .build()
+            val request: Request = chain.request()
+                .newBuilder()
+                .url(url)
+                .build()
+            return@Interceptor chain.proceed(request)
+        }
     }
 
     @Singleton
@@ -50,11 +54,14 @@ object HiltModules {
 
     @Singleton
     @Provides
-     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        interceptor: Interceptor,
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(clientInterceptor).addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(interceptor).addInterceptor(httpLoggingInterceptor)
             .build()
     }
 }

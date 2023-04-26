@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.movie_application_eren_karaboga.base.extensions.loadPosterUrl
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.movie_application_eren_karaboga.R
+import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.databinding.FragmentDetailsBinding
 import com.example.movie_application_eren_karaboga.presentation.movie.adapter.GenreAdapter
@@ -59,15 +63,18 @@ class DetailsFragment : Fragment() {
     private fun bindViewModel(movieId: Int) {
         viewModel.getObserverLiveData().observe(
             viewLifecycleOwner
-        ) { movieList ->
-            if (movieList != null) {
-                genreAdapter.setList(movieList.genres)
-                binding.TvMovieName.text = movieList.title
-                binding.TvDuration.text = movieList.releaseDate
-                binding.TvRating.text = movieList.voteAverage.toString()
-                binding.TvGenre.text = movieList.originalLanguage
-                binding.TvDescMovie.text = movieList.overview
-                binding.IvPoster.loadPosterUrl(movieList.posterPath)
+        ) { movieDetail ->
+            if (movieDetail != null) {
+                genreAdapter.setList(movieDetail.genres)
+                binding.TvMovieName.text = movieDetail.title
+                binding.TvDuration.text = movieDetail.releaseDate
+                binding.TvRating.text = movieDetail.voteAverage.toString()
+                binding.TvGenre.text = movieDetail.originalLanguage
+                binding.TvDescMovie.text = movieDetail.overview
+                Glide.with(binding.IvPoster)
+                    .load(movieDetail.posterPath.loadFullImage()).placeholder(R.drawable.loading_image).error(R.drawable.error_image)
+                    .transform(CenterInside(), RoundedCorners(30))
+                    .into(binding.IvPoster)
             }
         }
         viewModel.getMovieDetail(movieId)
