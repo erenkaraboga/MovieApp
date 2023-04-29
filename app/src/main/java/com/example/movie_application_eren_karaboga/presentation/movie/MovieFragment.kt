@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
+import com.example.movie_application_eren_karaboga.data.remote.repositories.MovieRepository
 import com.example.movie_application_eren_karaboga.databinding.FragmentMovieBinding
 
 import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
@@ -54,12 +55,19 @@ class MovieFragment : Fragment() {
     private fun bindViewModel() {
         viewModel.getObserverLiveData().observe(
             viewLifecycleOwner
-        ) { movieList ->
-            if (movieList != null) {
-                movieAdapter.setList(movieList.results);
+        ) { result ->
+            when (result) {
+                is MovieRepository.Result.Success -> {
+                    val movieList = result.data?.results
+                    if (movieList != null) {
+                        movieAdapter.setList(movieList)
+                    }
+                }
+                is MovieRepository.Result.Error -> {
+                   println(result.message)
+                }
             }
         }
-
     }
 
     private fun configureRecyclerView() {

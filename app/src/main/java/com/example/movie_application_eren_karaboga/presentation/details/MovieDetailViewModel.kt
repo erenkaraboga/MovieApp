@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.movie_application_eren_karaboga.data.models.MovieDetail
+import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.data.remote.repositories.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,12 +13,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
-    private var movieList: LiveData<MovieDetail> = MutableLiveData()
+    private var movieList: LiveData<MovieRepository.Result<MovieDetail>> = MutableLiveData()
 
-    fun getObserverLiveData(): LiveData<MovieDetail> = movieList
+    fun getObserverLiveData(): LiveData<MovieRepository.Result<MovieDetail>> = movieList
 
-    fun getMovieDetail(movieId: Int) = movieRepository.getMovieDetail(movieId,
-        movieList as MutableLiveData<MovieDetail>
+    fun getMovieDetail(movieId: Int) = movieRepository.getMovieDetail(
+        movieId,
+        movieList as MutableLiveData<MovieRepository.Result<MovieDetail>>
     )
 }
+
 

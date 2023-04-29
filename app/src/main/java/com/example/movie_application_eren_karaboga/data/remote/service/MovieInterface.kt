@@ -1,7 +1,7 @@
 package com.example.movie_application_eren_karaboga.data.remote.service
 
 import com.example.movie_application_eren_karaboga.data.models.MovieDetail
-import com.example.movie_application_eren_karaboga.data.models.Result
+import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,14 +11,14 @@ interface MovieInterface {
     @GET("movie/popular")
     fun getAllMovies(
         @Query("page") query: String,
-    ): Call<Result>
+    ): Call<MovieResult>
 
 
     @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") movie_id: Int): Call<MovieDetail>
 
     @GET("search/movie")
-    fun searchMovie(@Query("query") query: String): Call<Result>
+    fun searchMovie(@Query("query") query: String): Call<MovieResult>
 
 }
 

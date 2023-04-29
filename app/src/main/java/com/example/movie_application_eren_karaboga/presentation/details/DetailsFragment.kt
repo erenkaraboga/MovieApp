@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.base.utils.Constants
+import com.example.movie_application_eren_karaboga.data.remote.repositories.MovieRepository
 import com.example.movie_application_eren_karaboga.databinding.FragmentDetailsBinding
 import com.example.movie_application_eren_karaboga.presentation.movie.adapter.GenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,20 +62,27 @@ class DetailsFragment : Fragment() {
     }
 
     private fun bindViewModel(movieId: Int) {
-        viewModel.getObserverLiveData().observe(
-            viewLifecycleOwner
-        ) { movieDetail ->
-            if (movieDetail != null) {
-                genreAdapter.setList(movieDetail.genres)
-                binding.TvMovieName.text = movieDetail.title
-                binding.TvDuration.text = movieDetail.releaseDate
-                binding.TvRating.text = movieDetail.voteAverage.toString()
-                binding.TvGenre.text = movieDetail.originalLanguage
-                binding.TvDescMovie.text = movieDetail.overview
-                Glide.with(binding.IvPoster)
-                    .load(movieDetail.posterPath.loadFullImage()).placeholder(R.drawable.loading_image).error(R.drawable.error_image)
-                    .transform(CenterInside(), RoundedCorners(30))
-                    .into(binding.IvPoster)
+        viewModel.getObserverLiveData().observe(viewLifecycleOwner) { movieDetailResult ->
+            when (movieDetailResult) {
+                is MovieRepository.Result.Success -> {
+                    val movieDetail = movieDetailResult.data
+                    genreAdapter.setList(movieDetail!!.genres)
+                    binding.TvMovieName.text = movieDetail.title
+                    binding.TvDuration.text = movieDetail.releaseDate
+                    binding.TvRating.text = movieDetail.voteAverage.toString()
+                    binding.TvGenre.text = movieDetail.originalLanguage
+                    binding.TvDescMovie.text = movieDetail.overview
+                    Glide.with(binding.IvPoster)
+                            .load(movieDetail.posterPath.loadFullImage())
+                            .placeholder(R.drawable.loading_image)
+                            .error(R.drawable.error_image)
+                            .transform(CenterInside(), RoundedCorners(30))
+                            .into(binding.IvPoster)
+                }
+                is MovieRepository.Result.Error -> {
+
+                }
+
             }
         }
         viewModel.getMovieDetail(movieId)
