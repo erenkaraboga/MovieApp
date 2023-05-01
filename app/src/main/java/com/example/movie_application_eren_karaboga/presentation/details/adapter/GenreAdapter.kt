@@ -1,15 +1,13 @@
-package com.example.movie_application_eren_karaboga.presentation.movie.adapter
+package com.example.movie_application_eren_karaboga.presentation.details.adapter
 
 import android.view.LayoutInflater
-import android.view.View
+
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie_application_eren_karaboga.data.models.Genre
-import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
-import com.example.movie_application_eren_karaboga.data.models.Movie
 import com.example.movie_application_eren_karaboga.databinding.GenreItemBinding
 
-class GenreAdapter() :
+class GenreAdapter :
     RecyclerView.Adapter<GenreAdapter.MyCustomHolder>() {
 
     private var data: List<Genre>? = null

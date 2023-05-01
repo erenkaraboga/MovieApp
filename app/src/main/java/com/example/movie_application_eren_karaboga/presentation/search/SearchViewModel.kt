@@ -16,8 +16,12 @@ class MovieSearch @Inject constructor(private val movieRepository: MovieReposito
 
     fun getObserverLiveData(): LiveData<MovieResult> = movieList
 
-    fun searchmovie(query: String) = movieRepository.searchMovie(query,
+    fun searchMovie(query: String) = movieRepository.searchMovie(query,
         movieList as MutableLiveData<MovieResult>
     )
+    fun clearSearchResults() {
+        val movieListEmpty: LiveData<MovieResult> = MutableLiveData()
+        movieList = movieListEmpty
+    }
 
 }

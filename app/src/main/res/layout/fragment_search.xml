@@ -9,6 +9,7 @@
     android:paddingVertical="20dp"
     tools:context=".presentation.search.SearchFragment">
 
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
@@ -23,6 +24,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

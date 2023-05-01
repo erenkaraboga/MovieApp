@@ -7,16 +7,16 @@ import com.example.movie_application_eren_karaboga.data.remote.repositories.Movi
 import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
+import com.example.movie_application_eren_karaboga.base.utils.Result
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
-    private var movieList: LiveData<MovieRepository.Result<MovieResult>> = MutableLiveData()
+    private var movieList: LiveData<Result<MovieResult>> = MutableLiveData()
 
-    fun getObserverLiveData(): LiveData<MovieRepository.Result<MovieResult>> = movieList
+    fun getObserverLiveData(): LiveData<Result<MovieResult>> = movieList
 
     fun loadPopularData(page: String) = movieRepository.getPopularMovies(
         page,
-        movieList as MutableLiveData<MovieRepository.Result<MovieResult>>
+        movieList as MutableLiveData<Result<MovieResult>>
     )
 }

@@ -9,7 +9,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
-import com.example.movie_application_eren_karaboga.base.utils.Constants.posterUrl
 import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
 import com.example.movie_application_eren_karaboga.data.models.Movie
 

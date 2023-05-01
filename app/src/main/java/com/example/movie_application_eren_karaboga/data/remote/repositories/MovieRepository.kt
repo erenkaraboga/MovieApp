@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.movie_application_eren_karaboga.data.models.MovieDetail
 import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.data.remote.service.MovieInterface
-
+import com.example.movie_application_eren_karaboga.base.utils.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +27,12 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
     fun getMovieDetail(movieId: Int, liveData:  MutableLiveData<Result<MovieDetail>>) {
         movieInterface.getMovieDetail(movieId).enqueue(object : Callback<MovieDetail> {
             override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
-                liveData.postValue(Result.Success(response.body()))
+                if(response.body()!=null){
+                    liveData.postValue(Result.Success(response.body()))
+                }
+                else{
+                    liveData.postValue(Result.Error("Error"))
+                }
             }
 
             override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
@@ -47,8 +52,5 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
         })
     }
 
-    sealed class Result<out T : Any> {
-        data class Success<out T : Any>(val data: T?) : Result<T>()
-        data class Error(val message: String) : Result<Nothing>()
-    }
+
 }

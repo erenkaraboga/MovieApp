@@ -5,28 +5,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie_application_eren_karaboga.data.models.Movie
 import com.example.movie_application_eren_karaboga.databinding.GenreItemBinding
+import com.example.movie_application_eren_karaboga.databinding.SearchItemBinding
 
-class SearchAdapter(private val movieList: List<Movie>) :
+
+class SearchAdapter :
     RecyclerView.Adapter<SearchAdapter.MovieViewHolder>() {
 
-    class MovieViewHolder(private val binding: GenreItemBinding) :
+    private var movieList: List<Movie>? = null
+    fun setList(data: List<Movie>) {
+        movieList = data
+        notifyDataSetChanged()
+    }
+    class MovieViewHolder(private val binding: SearchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            binding.tvGenreType.text = movie.originalTitle
+            binding.tvGenreType.text = movie.title
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = GenreItemBinding.inflate(inflater, parent, false)
+        val binding = SearchItemBinding.inflate(inflater, parent, false)
         return MovieViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movieList[position])
+        movieList?.get(position)?.let { holder.bind(it) }
     }
-
-    override fun getItemCount(): Int {
-        return movieList.size
-    }
+    override fun getItemCount(): Int = movieList?.size ?: 0
 }

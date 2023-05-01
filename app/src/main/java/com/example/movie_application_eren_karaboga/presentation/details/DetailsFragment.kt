@@ -13,11 +13,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.base.utils.Constants
-import com.example.movie_application_eren_karaboga.data.remote.repositories.MovieRepository
 import com.example.movie_application_eren_karaboga.databinding.FragmentDetailsBinding
-import com.example.movie_application_eren_karaboga.presentation.movie.adapter.GenreAdapter
+import com.example.movie_application_eren_karaboga.presentation.details.adapter.GenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
-
+import com.example.movie_application_eren_karaboga.base.utils.Result
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -64,7 +63,7 @@ class DetailsFragment : Fragment() {
     private fun bindViewModel(movieId: Int) {
         viewModel.getObserverLiveData().observe(viewLifecycleOwner) { movieDetailResult ->
             when (movieDetailResult) {
-                is MovieRepository.Result.Success -> {
+                is Result.Success -> {
                     val movieDetail = movieDetailResult.data
                     genreAdapter.setList(movieDetail!!.genres)
                     binding.TvMovieName.text = movieDetail.title
@@ -79,7 +78,7 @@ class DetailsFragment : Fragment() {
                             .transform(CenterInside(), RoundedCorners(30))
                             .into(binding.IvPoster)
                 }
-                is MovieRepository.Result.Error -> {
+                is Result.Error -> {
 
                 }
 
