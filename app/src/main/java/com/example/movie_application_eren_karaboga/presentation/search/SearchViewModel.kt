@@ -3,6 +3,7 @@ package com.example.movie_application_eren_karaboga.presentation.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movie_application_eren_karaboga.base.utils.Result
 import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.data.remote.repositories.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,16 +13,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieSearch @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
-    private var movieList: LiveData<MovieResult> = MutableLiveData()
+    private var movieList: LiveData<Result<MovieResult>> = MutableLiveData()
 
-    fun getObserverLiveData(): LiveData<MovieResult> = movieList
+    fun getObserverLiveData(): LiveData<Result<MovieResult>> = movieList
 
     fun searchMovie(query: String) = movieRepository.searchMovie(query,
-        movieList as MutableLiveData<MovieResult>
+        movieList as MutableLiveData<Result<MovieResult>>
     )
-    fun clearSearchResults() {
-        val movieListEmpty: LiveData<MovieResult> = MutableLiveData()
-        movieList = movieListEmpty
-    }
-
 }

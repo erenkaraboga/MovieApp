@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movie_application_eren_karaboga.base.utils.Result
 import com.example.movie_application_eren_karaboga.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -73,11 +74,20 @@ class SearchFragment : Fragment() {
     private fun setAdapter() {
         movieAdapter =SearchAdapter()
     }
-   private fun bindViewModel(){
-       viewModel.getObserverLiveData().observe(viewLifecycleOwner) { result ->
-           result?.let {
-              movieAdapter.setList(it.results)
-           }
-       }
+    private fun bindViewModel() {
+        viewModel.getObserverLiveData().observe(
+            viewLifecycleOwner
+        ) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val movieList = result.data!!.results
+                    movieAdapter.setList(movieList)
+                }
+                is Result.Error -> {
+                    println(result.message)
+                }
+            }
+        }
     }
 }
+

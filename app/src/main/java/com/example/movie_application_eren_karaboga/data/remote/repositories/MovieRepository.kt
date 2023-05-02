@@ -14,7 +14,13 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
     fun getPopularMovies(page: String, liveData: MutableLiveData<Result<MovieResult>>) {
         movieInterface.getAllMovies(page).enqueue(object : Callback<MovieResult> {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
-                liveData.postValue(Result.Success(response.body()))
+
+                if(response.body()!=null){
+                    liveData.postValue(Result.Success(response.body()))
+                }
+                else{
+                    liveData.postValue(Result.Error("Error"))
+                }
             }
 
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
@@ -40,14 +46,19 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
             }
         })
     }
-    fun searchMovie(query:String, liveData: MutableLiveData<MovieResult>){
+    fun searchMovie(query:String, liveData: MutableLiveData<Result<MovieResult>>){
         movieInterface.searchMovie(query).enqueue(object:Callback<MovieResult>{
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
-                liveData.postValue(response.body())
+                if(response.body()!=null){
+                    liveData.postValue(Result.Success(response.body()))
+                }
+                else{
+                    liveData.postValue(Result.Error("Error"))
+                }
             }
 
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
-                liveData.postValue(null)
+                liveData.postValue(Result.Error(t.message ?: "Unknown Error"))
             }
         })
     }
