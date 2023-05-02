@@ -56,7 +56,7 @@ class SearchFragment : Fragment() {
                         viewModel.searchMovie(it.toString())
                     }
                     else if(it.isEmpty()){
-                        viewModel.clearSearchResults()
+                        movieAdapter.setList(arrayListOf())
                     }
                 }
             }

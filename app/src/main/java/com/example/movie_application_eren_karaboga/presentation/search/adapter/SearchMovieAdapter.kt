@@ -22,7 +22,6 @@ class SearchAdapter :
             binding.tvGenreType.text = movie.title
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = SearchItemBinding.inflate(inflater, parent, false)
