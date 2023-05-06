@@ -49,8 +49,10 @@ class MovieAdapter(private val listener: OnClickListener) :
         fun bind(movie: Movie) {
             this.movie = movie
             binding.tvMovieName.text = movie.originalTitle
-            Glide.with(binding.IvMovie)
-                .load(movie.posterPath.loadFullImage())
+            binding.tvOverView.text= movie.overview
+            binding.TvVoteText.text = movie.voteAverage.toString()
+
+            Glide.with(binding.IvMovie).load(movie.posterPath.loadFullImage())
                 .transform(CenterInside(), RoundedCorners(30)).placeholder(R.drawable.loading_image).error(
                 R.drawable.error_image)
                 .into(binding.IvMovie)
