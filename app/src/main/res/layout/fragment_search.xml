@@ -6,30 +6,50 @@
     android:layout_height="match_parent"
     android:background="@color/luna"
     android:paddingHorizontal="10dp"
-    android:paddingVertical="20dp"
     tools:context=".presentation.search.SearchFragment">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/IvBack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/star_orange"
+        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_back">
+
+        </ImageView>
+    </com.google.android.material.card.MaterialCardView>
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
         android:hint="@string/search_movie"
-        android:outlineAmbientShadowColor="@color/servet"
-        android:textColorHint="@color/charade"
-        android:textColor="@color/servet"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:outlineAmbientShadowColor="@color/servet"
+        android:textColor="@color/servet"
+        android:textColorHint="@color/charade"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@id/IvBack"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

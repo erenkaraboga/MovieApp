@@ -24,8 +24,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/IvCard"
-        android:layout_width="110dp"
-        android:layout_height="160dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="60dp"
         app:cardElevation="20dp"
@@ -34,10 +34,11 @@
         app:layout_constraintBottom_toBottomOf="@id/baseCard"
         app:layout_constraintStart_toStartOf="@id/baseCard">
         <ImageView
+
             android:id="@+id/IvMovie"
-            android:scaleType="centerCrop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            >
         </ImageView>
     </com.google.android.material.card.MaterialCardView>
     <TextView

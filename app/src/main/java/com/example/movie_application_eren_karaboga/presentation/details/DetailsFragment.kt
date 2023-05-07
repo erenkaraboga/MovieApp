@@ -36,6 +36,9 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        binding.IvBack. setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         bindViewModel(movieId)
         return binding.root
     }

@@ -22,18 +22,30 @@
         app:layout_constraintBottom_toTopOf="@+id/TvPopular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/IvSearch"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/TvPopular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.908"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.456" />
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toTopOf="@+id/TvPopular"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
 
     <TextView
         android:id="@+id/TvPopular"

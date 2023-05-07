@@ -10,7 +10,9 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Result
 import com.example.movie_application_eren_karaboga.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +43,9 @@ class SearchFragment : Fragment() {
         initRecyclerView()
         listenSearch()
         bindViewModel()
-
+        binding.IvBack. setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         binding.editText.requestFocus()
         manager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         manager.showSoftInput(binding.editText, InputMethodManager.SHOW_IMPLICIT)
