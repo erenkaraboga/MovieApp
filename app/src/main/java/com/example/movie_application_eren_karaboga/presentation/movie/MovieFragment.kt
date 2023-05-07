@@ -40,12 +40,10 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setAdapter()
-        initRecyclerView()
-        configureRecyclerView()
     }
 
     private fun listenSearchTap() {
-        binding.imageView2.setOnClickListener {
+        binding.IvSearch.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.activity_main, SearchFragment())
             transaction.addToBackStack(null)
@@ -69,25 +67,6 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private fun configureRecyclerView() {
-        binding.apply {
-            carouselRecyclerview.adapter = movieAdapter
-            carouselRecyclerview.setAlpha(true)
-            carouselRecyclerview.set3DItem(true)
-            carouselRecyclerview.setIntervalRatio(0.6f)
-            carouselRecyclerview.setInfinite(true)
-        }
-    }
-
-    private fun initRecyclerView() {
-        val manager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.VERTICAL, false
-        )
-        val recyclerView = binding.carouselRecyclerview
-        recyclerView.adapter = movieAdapter
-        recyclerView.layoutManager = manager
-    }
 
     private fun setAdapter() {
         movieAdapter = MovieAdapter(object : MovieAdapter.OnClickListener {

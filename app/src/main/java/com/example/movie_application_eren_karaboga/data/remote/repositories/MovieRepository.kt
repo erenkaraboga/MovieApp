@@ -12,7 +12,41 @@ import javax.inject.Inject
 
 class MovieRepository @Inject constructor(private val movieInterface: MovieInterface) {
     fun getPopularMovies(page: String, liveData: MutableLiveData<Result<MovieResult>>) {
-        movieInterface.getAllMovies(page).enqueue(object : Callback<MovieResult> {
+        movieInterface.getPopularMovies(page).enqueue(object : Callback<MovieResult> {
+            override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
+
+                if(response.body()!=null){
+                    liveData.postValue(Result.Success(response.body()))
+                }
+                else{
+                    liveData.postValue(Result.Error("Error"))
+                }
+            }
+
+            override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                liveData.postValue(Result.Error(t.message ?: "Unknown Error"))
+            }
+        })
+    }
+    fun getUpComingMovies(page: String, liveData: MutableLiveData<Result<MovieResult>>) {
+        movieInterface.getUpComingMovies(page).enqueue(object : Callback<MovieResult> {
+            override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
+
+                if(response.body()!=null){
+                    liveData.postValue(Result.Success(response.body()))
+                }
+                else{
+                    liveData.postValue(Result.Error("Error"))
+                }
+            }
+
+            override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                liveData.postValue(Result.Error(t.message ?: "Unknown Error"))
+            }
+        })
+    }
+    fun getTopRatedMovies(page: String, liveData: MutableLiveData<Result<MovieResult>>) {
+        movieInterface.getTopRatedMovies(page).enqueue(object : Callback<MovieResult> {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
 
                 if(response.body()!=null){

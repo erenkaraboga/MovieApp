@@ -1,4 +1,5 @@
-package com.example.movie_application_eren_karaboga.presentation.movie.adapter
+package com.example.movie_application_eren_karaboga.presentation.dashboard.adapter
+
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,11 @@ import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
 import com.example.movie_application_eren_karaboga.data.models.Movie
+import com.example.movie_application_eren_karaboga.databinding.MovieDashItemBinding
+import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
 
-class MovieAdapter(private val listener: OnClickListener) :
-    RecyclerView.Adapter<MovieAdapter.MyCustomHolder>() {
+class DashboardAdapter(private val listener: OnClickListener) :
+    RecyclerView.Adapter<DashboardAdapter.MyCustomHolder>() {
 
     private var data: List<Movie>? = null
 
@@ -24,7 +27,7 @@ class MovieAdapter(private val listener: OnClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomHolder {
         val binding =
-            ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            MovieDashItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyCustomHolder(listener, binding)
 
     }
@@ -37,7 +40,7 @@ class MovieAdapter(private val listener: OnClickListener) :
 
     class MyCustomHolder(
         private val listener: OnClickListener,
-        private val binding: ListItemMovieBinding,
+        private val binding: MovieDashItemBinding,
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         private lateinit var movie: Movie
@@ -49,12 +52,9 @@ class MovieAdapter(private val listener: OnClickListener) :
         fun bind(movie: Movie) {
             this.movie = movie
             binding.tvMovieName.text = movie.originalTitle
-            //binding.tvOverView.text= movie.overview
-            //binding.TvVoteText.text = movie.voteAverage.toString()
-
             Glide.with(binding.IvMovie).load(movie.posterPath?.loadFullImage())
                 .transform(CenterInside(), RoundedCorners(30)).placeholder(R.drawable.loading_image).error(
-                R.drawable.error_image)
+                    R.drawable.error_image)
                 .into(binding.IvMovie)
         }
 

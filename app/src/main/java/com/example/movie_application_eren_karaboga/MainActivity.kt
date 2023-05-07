@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.movie_application_eren_karaboga.databinding.ActivityMainBinding
+import com.example.movie_application_eren_karaboga.presentation.movie.DashboardFragment
 import com.example.movie_application_eren_karaboga.presentation.movie.MovieFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,10 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val movieFragment = MovieFragment()
+        val dashFragment = DashboardFragment()
         val fragmentManager : FragmentManager=supportFragmentManager
         val fragmentTransaction:FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.activity_main,movieFragment).commit()
+        fragmentTransaction.replace(R.id.activity_main,dashFragment).commit()
 
     }
 }

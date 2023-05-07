@@ -8,4 +8,8 @@
     <string name="release">Release</string>
     <string name="rating">Rating</string>
     <string name="search_movie">Search Movie</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="up_coming">Upcoming</string>
+    <string name="welcome">Welcome</string>
+    <string name="see_more">See More</string>
 </resources>
