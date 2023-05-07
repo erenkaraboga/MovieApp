@@ -28,20 +28,36 @@
 
         </ImageView>
     </com.google.android.material.card.MaterialCardView>
-    <EditText
-        android:id="@+id/editText"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/IvBackk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
-        android:hint="@string/search_movie"
-        android:inputType="text"
-        android:outlineAmbientShadowColor="@color/servet"
-        android:textColor="@color/servet"
-        android:textColorHint="@color/charade"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/IvBack"
-        />
+        app:layout_constraintTop_toBottomOf="@id/IvBack">
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/droid_bold"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:background="#00000000"
+            android:hint="@string/search_movie"
+            android:inputType="text"
+            android:textSize="15sp"
+            android:outlineAmbientShadowColor="@color/servet"
+            android:textColor="@color/servet"
+            android:textColorHint="@color/charade"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
@@ -49,7 +65,7 @@
         android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/IvBackk" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

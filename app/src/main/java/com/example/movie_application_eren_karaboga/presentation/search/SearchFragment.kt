@@ -1,4 +1,5 @@
 package com.example.movie_application_eren_karaboga.presentation.search
+
 import android.content.Context
 import com.example.movie_application_eren_karaboga.presentation.search.adapter.SearchAdapter
 import android.os.Bundle
@@ -13,8 +14,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
+import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.base.utils.Result
 import com.example.movie_application_eren_karaboga.databinding.FragmentSearchBinding
+import com.example.movie_application_eren_karaboga.presentation.dashboard.adapter.DashboardAdapter
+import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -43,7 +47,7 @@ class SearchFragment : Fragment() {
         initRecyclerView()
         listenSearch()
         bindViewModel()
-        binding.IvBack. setOnClickListener {
+        binding.IvBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
         binding.editText.requestFocus()
@@ -51,7 +55,8 @@ class SearchFragment : Fragment() {
         manager.showSoftInput(binding.editText, InputMethodManager.SHOW_IMPLICIT)
         super.onViewCreated(view, savedInstanceState)
     }
-    private fun listenSearch(){
+
+    private fun listenSearch() {
         binding.editText.doOnTextChanged { text, _, _, _ ->
             searchJob?.cancel()
             searchJob = lifecycleScope.launch {
@@ -59,25 +64,31 @@ class SearchFragment : Fragment() {
                 text?.let {
                     if (it.length >= 2) {
                         viewModel.searchMovie(it.toString())
-                    }
-                    else if(it.isEmpty()){
+                    } else if (it.isEmpty()) {
                         movieAdapter.setList(arrayListOf())
                     }
                 }
             }
         }
     }
-  private fun  initRecyclerView(){
-      val manager = LinearLayoutManager(
-          context,
-          LinearLayoutManager.VERTICAL, false
-      )
-      binding.recyclerview.layoutManager = manager
-      binding.recyclerview.adapter = movieAdapter
+
+    private fun initRecyclerView() {
+        val manager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL, false
+        )
+        binding.recyclerview.layoutManager = manager
+        binding.recyclerview.adapter = movieAdapter
     }
+
     private fun setAdapter() {
-        movieAdapter =SearchAdapter()
+        movieAdapter = SearchAdapter(object : SearchAdapter.OnClickListener {
+            override fun onclick(movieId: Int) {
+                navigateDetailPage(movieId)
+            }
+        })
     }
+
     private fun bindViewModel() {
         viewModel.getObserverLiveData().observe(
             viewLifecycleOwner
@@ -92,6 +103,17 @@ class SearchFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun navigateDetailPage(movieId: Int) {
+        val bundle = Bundle()
+        bundle.putInt(Constants.MOVIE_ID, movieId)
+        val movieDetailFragment = DetailsFragment()
+        movieDetailFragment.arguments = bundle
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.activity_main, movieDetailFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
 
