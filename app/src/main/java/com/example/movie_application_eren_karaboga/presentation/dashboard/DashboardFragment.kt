@@ -13,15 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.databinding.FragmentDashboardBinding
-
 import com.example.movie_application_eren_karaboga.presentation.dashboard.DashboardViewModel
 import com.example.movie_application_eren_karaboga.presentation.dashboard.adapter.DashboardAdapter
-
-
 import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
-import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
-
-
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +33,7 @@ class DashboardFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         listenSearchTap()
+        listenSeeMoreTap()
         bindViewModel()
         getMovieTypes()
         return binding.root
@@ -57,10 +52,21 @@ class DashboardFragment : Fragment() {
             transaction.commit()
         }
     }
+    private fun listenSeeMoreTap(){
+        binding.TvPopularMore.setOnClickListener{
+            navigateMovieListPage(Constants.POPULAR)
+        }
+        binding.TvUpComingMore.setOnClickListener{
+            navigateMovieListPage(Constants.UPCOMING)
+        }
+        binding.TvTopRatedMore.setOnClickListener{
+            navigateMovieListPage(Constants.TOP_RATED)
+        }
+    }
     private fun getMovieTypes(){
         viewModel.loadPopularData("1")
-        viewModel.loadUpComingData("1")
         viewModel.loadTopRatedData("1")
+        viewModel.loadUpComingData("1")
     }
     private fun bindViewModel() {
         viewModel.getObserverLiveData().observe(
@@ -120,17 +126,17 @@ class DashboardFragment : Fragment() {
         )
 
         val rVPopular = binding.recyclerviewPopular
-        val rVMost = binding.recyclerviewMost
+        val rVMost = binding.recyclerviewTopRated
         val rVUp = binding.recyclerviewUpcoming
 
 
         rVPopular.layoutManager = managerPopular
         rVMost.layoutManager=managerMost
         rVUp.layoutManager=managerUp
-
+        movieAdapterTopRated
         rVPopular.adapter = movieAdapter
-        rVMost.adapter = movieAdapterUpComing
-        rVUp.adapter = movieAdapterTopRated
+        rVMost.adapter = movieAdapterTopRated
+        rVUp.adapter = movieAdapterUpComing
     }
 
     private fun setAdapter() {
@@ -150,7 +156,16 @@ class DashboardFragment : Fragment() {
             }
         })
     }
-
+    private fun navigateMovieListPage(movieType: String){
+        val bundle = Bundle()
+        bundle.putString(Constants.MOVIE_TYPE, movieType)
+        val movieListFragment = MovieFragment()
+        movieListFragment.arguments = bundle
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.activity_main, movieListFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
     private fun navigateDetailPage(movieId: Int) {
         val bundle = Bundle()
         bundle.putInt(Constants.MOVIE_ID, movieId)

@@ -5,37 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/luna"
-    android:orientation="vertical"
-    tools:context=".presentation.movie.MovieFragment">
+    android:paddingHorizontal="10dp"
+    tools:context=".presentation.search.SearchFragment">
 
-    <ImageView
-        android:id="@+id/IvSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_search"
-        app:layout_constraintBottom_toTopOf="@+id/TvPopular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.904"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/IvBack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/star_orange"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813" />
+        android:clickable="true"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/TvPopular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/feral_bold"
-        android:text="@string/popular_movies"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_back">
+
+        </ImageView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
-
+        app:layout_constraintTop_toBottomOf="@+id/IvBack" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

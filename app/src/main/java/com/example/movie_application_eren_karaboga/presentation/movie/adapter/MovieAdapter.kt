@@ -12,6 +12,7 @@ import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
 import com.example.movie_application_eren_karaboga.data.models.Movie
 
+
 class MovieAdapter(private val listener: OnClickListener) :
     RecyclerView.Adapter<MovieAdapter.MyCustomHolder>() {
 
@@ -49,12 +50,11 @@ class MovieAdapter(private val listener: OnClickListener) :
         fun bind(movie: Movie) {
             this.movie = movie
             binding.tvMovieName.text = movie.originalTitle
-            //binding.tvOverView.text= movie.overview
-            //binding.TvVoteText.text = movie.voteAverage.toString()
-
             Glide.with(binding.IvMovie).load(movie.posterPath?.loadFullImage())
-                .transform(CenterInside(), RoundedCorners(30)).placeholder(R.drawable.loading_image).error(
-                R.drawable.error_image)
+                .transform(CenterInside(), RoundedCorners(30)).placeholder(R.drawable.loading_image)
+                .error(
+                    R.drawable.error_image
+                )
                 .into(binding.IvMovie)
         }
 
