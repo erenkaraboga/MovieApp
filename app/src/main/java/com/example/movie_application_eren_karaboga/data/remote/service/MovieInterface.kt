@@ -8,20 +8,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieInterface {
-    @GET("movie/popular")
-    fun getPopularMovies(
-        @Query("page") query: String,
-    ): Call<MovieResult>
 
-    @GET("movie/upcoming")
-    fun getUpComingMovies(
-        @Query("page") query: String,
-    ): Call<MovieResult>
+    @GET("movie/{type}")
+    fun getMovieList(@Path("type") type: String):  Call<MovieResult>
 
-    @GET("movie/top_rated")
-    fun getTopRatedMovies(
-        @Query("page") query: String,
-    ): Call<MovieResult>
 
     @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") movie_id: Int): Call<MovieDetail>

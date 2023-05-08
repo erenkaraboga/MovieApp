@@ -1,7 +1,7 @@
 package com.example.movie_application_eren_karaboga.presentation.search
 
 import android.content.Context
-import com.example.movie_application_eren_karaboga.presentation.search.adapter.SearchAdapter
+import com.example.movie_application_eren_karaboga.presentation.search.adapter.MovieSearchAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +11,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.base.utils.Result
 import com.example.movie_application_eren_karaboga.databinding.FragmentSearchBinding
-import com.example.movie_application_eren_karaboga.presentation.dashboard.adapter.DashboardAdapter
+
 import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -25,14 +24,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class MovieSearchFragment : Fragment() {
 
-    private val viewModel: MovieSearch by viewModels()
+    private val viewModel: MovieSearchViewModel by viewModels()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private var searchJob: Job? = null
     private val searchDelay: Long = 500
-    private lateinit var movieAdapter: SearchAdapter
+    private lateinit var movieAdapter: MovieSearchAdapter
     private lateinit var manager: InputMethodManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +81,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        movieAdapter = SearchAdapter(object : SearchAdapter.OnClickListener {
+        movieAdapter = MovieSearchAdapter(object : MovieSearchAdapter.OnClickListener {
             override fun onclick(movieId: Int) {
                 navigateDetailPage(movieId)
             }

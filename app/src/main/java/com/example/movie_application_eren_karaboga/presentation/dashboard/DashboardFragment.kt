@@ -1,8 +1,8 @@
-package com.example.movie_application_eren_karaboga.presentation.movie
+package com.example.movie_application_eren_karaboga.presentation.movieList
 
 import com.example.movie_application_eren_karaboga.base.utils.Result
 
-import com.example.movie_application_eren_karaboga.presentation.search.SearchFragment
+import com.example.movie_application_eren_karaboga.presentation.search.MovieSearchFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
+import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.databinding.FragmentDashboardBinding
 import com.example.movie_application_eren_karaboga.presentation.dashboard.DashboardViewModel
 import com.example.movie_application_eren_karaboga.presentation.dashboard.adapter.DashboardAdapter
@@ -47,7 +48,7 @@ class DashboardFragment : Fragment() {
     private fun listenSearchTap() {
         binding.IvSearch.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.activity_main, SearchFragment())
+            transaction.replace(R.id.activity_main, MovieSearchFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }
@@ -64,11 +65,45 @@ class DashboardFragment : Fragment() {
         }
     }
     private fun getMovieTypes(){
-        viewModel.loadPopularData("1")
-        viewModel.loadTopRatedData("1")
-        viewModel.loadUpComingData("1")
+        viewModel.loadMovieData(Constants.POPULAR)
+        viewModel.loadMovieData(Constants.UPCOMING)
+        viewModel.loadMovieData(Constants.TOP_RATED)
     }
     private fun bindViewModel() {
+        viewModel.getObserverLiveData(Constants.POPULAR).observe(
+            viewLifecycleOwner
+        ) { result ->
+            handleResult(result, movieAdapter)
+        }
+        viewModel.getObserverLiveData(Constants.UPCOMING).observe(
+            viewLifecycleOwner
+        ) { result ->
+            handleResult(result, movieAdapterUpComing)
+        }
+        viewModel.getObserverLiveData(Constants.TOP_RATED).observe(
+            viewLifecycleOwner
+        ) { result ->
+            handleResult(result, movieAdapterTopRated)
+        }
+    }
+
+    private fun handleResult(
+        result: Result<MovieResult>?,
+        adapter: DashboardAdapter
+    ) {
+        when (result) {
+            is Result.Success -> {
+                val movieList = result.data!!.results
+                adapter.setList(movieList)
+            }
+            is Result.Error -> {
+                println(result.message)
+            }
+            else -> {}
+        }
+    }
+
+   /* private fun bindViewModel() {
         viewModel.getObserverLiveData().observe(
             viewLifecycleOwner
         ) { result ->
@@ -108,7 +143,7 @@ class DashboardFragment : Fragment() {
                 }
             }
         }
-    }
+    }*/
 
 
     private fun initRecyclerView() {
@@ -124,12 +159,9 @@ class DashboardFragment : Fragment() {
             context,
             LinearLayoutManager.HORIZONTAL, false
         )
-
         val rVPopular = binding.recyclerviewPopular
         val rVMost = binding.recyclerviewTopRated
         val rVUp = binding.recyclerviewUpcoming
-
-
         rVPopular.layoutManager = managerPopular
         rVMost.layoutManager=managerMost
         rVUp.layoutManager=managerUp
@@ -159,7 +191,7 @@ class DashboardFragment : Fragment() {
     private fun navigateMovieListPage(movieType: String){
         val bundle = Bundle()
         bundle.putString(Constants.MOVIE_TYPE, movieType)
-        val movieListFragment = MovieFragment()
+        val movieListFragment = MovieListFragment()
         movieListFragment.arguments = bundle
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.activity_main, movieListFragment)

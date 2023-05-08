@@ -12,25 +12,40 @@ import com.example.movie_application_eren_karaboga.base.utils.Result
 @HiltViewModel
 class DashboardViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
-    private var movieListPopular: LiveData<Result<MovieResult>> = MutableLiveData()
-    private var movieUpComingList: LiveData<Result<MovieResult>> = MutableLiveData()
-    private var movieTopRatedList: LiveData<Result<MovieResult>> = MutableLiveData()
+
+    private val movieListMap: MutableMap<String, LiveData<Result<MovieResult>>> = mutableMapOf()
+
+    fun getObserverLiveData(type: String): LiveData<Result<MovieResult>> {
+        if (!movieListMap.containsKey(type)) {
+            movieListMap[type] = MutableLiveData()
+            loadMovieData(type)
+        }
+        return movieListMap[type]!!
+    }
+
+     fun loadMovieData(type: String) {
+        movieRepository.getMovieList(type, movieListMap[type] as MutableLiveData<Result<MovieResult>>)
+    }
+
+    /* private var movieListPopular: LiveData<Result<MovieResult>> = MutableLiveData()
+     private var movieUpComingList: LiveData<Result<MovieResult>> = MutableLiveData()
+     private var movieTopRatedList: LiveData<Result<MovieResult>> = MutableLiveData()
 
 
-    fun getObserverLiveData(): LiveData<Result<MovieResult>> = movieListPopular
-    fun getObserverLiveDataUpComing(): LiveData<Result<MovieResult>> = movieUpComingList
-    fun getObserverLiveDataTopRated(): LiveData<Result<MovieResult>> = movieTopRatedList
+     fun getObserverLiveData(): LiveData<Result<MovieResult>> = movieListPopular
+     fun getObserverLiveDataUpComing(): LiveData<Result<MovieResult>> = movieUpComingList
+     fun getObserverLiveDataTopRated(): LiveData<Result<MovieResult>> = movieTopRatedList
 
-    fun loadPopularData(page: String) = movieRepository.getPopularMovies(
-        page,
-        movieListPopular as MutableLiveData<Result<MovieResult>>
-    )
-    fun loadUpComingData(page: String) = movieRepository.getUpComingMovies(
-        page,
-        movieUpComingList as MutableLiveData<Result<MovieResult>>
-    )
-    fun loadTopRatedData(page: String) = movieRepository.getTopRatedMovies(
-        page,
-        movieTopRatedList as MutableLiveData<Result<MovieResult>>
-    )
+     fun loadPopularData(type: String) = movieRepository.getPopularMovies(
+         type,
+         movieListPopular as MutableLiveData<Result<MovieResult>>
+     )
+     fun loadUpComingData(type: String) = movieRepository.getPopularMovies(
+         type,
+         movieUpComingList as MutableLiveData<Result<MovieResult>>
+     )
+     fun loadTopRatedData(type: String) = movieRepository.getPopularMovies(
+         type,
+         movieTopRatedList as MutableLiveData<Result<MovieResult>>
+     )*/
 }

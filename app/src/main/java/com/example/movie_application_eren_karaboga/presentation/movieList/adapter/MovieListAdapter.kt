@@ -1,4 +1,4 @@
-package com.example.movie_application_eren_karaboga.presentation.search.adapter
+package com.example.movie_application_eren_karaboga.presentation.movieList.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,24 +9,40 @@ import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
-import com.example.movie_application_eren_karaboga.data.models.Movie
-import com.example.movie_application_eren_karaboga.databinding.GenreItemBinding
 import com.example.movie_application_eren_karaboga.databinding.ListItemMovieBinding
-import com.example.movie_application_eren_karaboga.databinding.SearchItemBinding
-import com.example.movie_application_eren_karaboga.presentation.dashboard.adapter.DashboardAdapter
+import com.example.movie_application_eren_karaboga.data.models.Movie
 
 
-class SearchAdapter(private val listener: OnClickListener) :
-    RecyclerView.Adapter<SearchAdapter.MovieViewHolder>() {
+class MovieListAdapter(private val listener: OnClickListener) :
+    RecyclerView.Adapter<MovieListAdapter.MyCustomHolder>() {
 
-    private var movieList: List<Movie>? = null
+    private var data: List<Movie>? = null
+
     fun setList(data: List<Movie>) {
-        movieList = data
+        this.data = data
         notifyDataSetChanged()
     }
-    class MovieViewHolder( private val listener: OnClickListener,private val binding: ListItemMovieBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener{
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomHolder {
+        val binding =
+            ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyCustomHolder(listener, binding)
+
+    }
+
+    override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
+        data?.get(position)?.let { holder.bind(it) }
+    }
+
+    override fun getItemCount(): Int = data?.size ?: 0
+
+    class MyCustomHolder(
+        private val listener: OnClickListener,
+        private val binding: ListItemMovieBinding,
+    ) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         private lateinit var movie: Movie
+
         init {
             binding.root.setOnClickListener(this)
         }
@@ -46,18 +62,9 @@ class SearchAdapter(private val listener: OnClickListener) :
             listener.onclick(movie.id)
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ListItemMovieBinding.inflate(inflater, parent, false)
-        return MovieViewHolder(listener,binding)
-    }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        movieList?.get(position)?.let { holder.bind(it) }
-    }
-    override fun getItemCount(): Int = movieList?.size ?: 0
 
     interface OnClickListener {
         fun onclick(movieId: Int)
     }
+
 }

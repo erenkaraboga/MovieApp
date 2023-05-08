@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/luna"
     android:paddingHorizontal="10dp"
-    tools:context=".presentation.search.SearchFragment">
+    tools:context=".presentation.search.MovieSearchFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/IvBack"

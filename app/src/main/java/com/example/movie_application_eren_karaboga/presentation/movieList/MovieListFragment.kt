@@ -1,8 +1,7 @@
-package com.example.movie_application_eren_karaboga.presentation.movie
+package com.example.movie_application_eren_karaboga.presentation.movieList
 
 import com.example.movie_application_eren_karaboga.base.utils.Result
 
-import com.example.movie_application_eren_karaboga.presentation.search.SearchFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,17 +11,18 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
+import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.databinding.FragmentMovieBinding
 import com.example.movie_application_eren_karaboga.presentation.dashboard.DashboardViewModel
 import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
-import com.example.movie_application_eren_karaboga.presentation.movie.adapter.MovieAdapter
+import com.example.movie_application_eren_karaboga.presentation.movieList.adapter.MovieListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieFragment : Fragment() {
+class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
-    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var movieAdapter: MovieListAdapter
     private val viewModel by viewModels<DashboardViewModel>()
     private var type: String = ""
     override fun onCreateView(
@@ -31,10 +31,10 @@ class MovieFragment : Fragment() {
     ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
         listenBackTap()
-        bindViewModel()
         arguments?.let {
             type = it.getString(Constants.MOVIE_TYPE).toString()
         }
+        bindViewModel()
         getMovies()
         return binding.root
     }
@@ -46,48 +46,45 @@ class MovieFragment : Fragment() {
 
 
     private fun bindViewModel() {
-        viewModel.getObserverLiveData().observe(
+        viewModel.getObserverLiveData(type).observe(
             viewLifecycleOwner
         ) { result ->
-            when (result) {
-                is Result.Success -> {
-                    val movieList = result.data!!.results
-                    movieAdapter.setList(movieList)
-                }
-                is Result.Error -> {
-                    println(result.message)
-                }
-            }
+            handleResult(result, movieAdapter)
         }
     }
 
+    private fun handleResult(
+        result: Result<MovieResult>?,
+        adapter: MovieListAdapter
+    ) {
+        when (result) {
+            is Result.Success -> {
+                val movieList = result.data!!.results
+                adapter.setList(movieList)
+            }
+            is Result.Error -> {
+                println(result.message)
+            }
+            else -> {}
+        }
+    }
 
     private fun setAdapter() {
-        movieAdapter = MovieAdapter(object : MovieAdapter.OnClickListener {
+        movieAdapter = MovieListAdapter(object : MovieListAdapter.OnClickListener {
             override fun onclick(movieId: Int) {
                 navigateDetailPage(movieId)
             }
         })
     }
     private fun getMovies(){
-        when (type) {
-            Constants.POPULAR -> {
-                viewModel.loadPopularData("1")
-            }
-            Constants.UPCOMING -> {
-                viewModel.loadUpComingData("1")
-            }
-            else -> {
-                viewModel.loadTopRatedData("1")
-            }
-        }
+      viewModel.loadMovieData(type)
     }
     private fun initRecyclerView() {
-        val manager = LinearLayoutManager(
+        val managerPopular = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
         )
-        binding.recyclerview.layoutManager = manager
+        binding.recyclerview.layoutManager = managerPopular
         binding.recyclerview.adapter = movieAdapter
     }
     private fun listenBackTap() {
