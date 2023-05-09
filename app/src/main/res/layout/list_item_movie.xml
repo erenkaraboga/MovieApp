@@ -28,19 +28,19 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="60dp"
-        app:cardElevation="20dp"
         android:background="@color/white"
         app:cardCornerRadius="15dp"
+        app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="@id/baseCard"
         app:layout_constraintStart_toStartOf="@id/baseCard">
+
         <ImageView
 
             android:id="@+id/IvMovie"
             android:layout_width="100dp"
-            android:layout_height="150dp"
-            >
-        </ImageView>
+            android:layout_height="150dp" />
     </com.google.android.material.card.MaterialCardView>
+
     <TextView
         android:id="@+id/tvMovieName"
         android:layout_width="170dp"
@@ -49,15 +49,15 @@
         android:layout_marginVertical="10dp"
         android:elevation="20dp"
         android:ellipsize="end"
-        android:maxLines="1"
         android:fontFamily="@font/droid_bold"
-        android:text="asfasfsafasfasfasf"
-        app:layout_constraintTop_toTopOf="@id/IvCard"
+        android:maxLines="1"
         android:paddingVertical="50dp"
-        android:paddingLeft="10dp"
-        app:layout_constraintStart_toEndOf="@id/IvCard"
+        android:paddingStart="10dp"
         android:textColor="@color/servet"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/IvCard"
+        app:layout_constraintTop_toTopOf="@id/IvCard" />
+
     <TextView
         android:id="@+id/tvOverView"
         android:layout_width="170dp"
@@ -66,45 +66,42 @@
         android:layout_marginVertical="40dp"
         android:elevation="20dp"
         android:ellipsize="end"
-        android:maxLines="3"
         android:fontFamily="@font/patela"
-        android:text="asknfkjasbfkjsabfjkasbfjkasbfkjasbfkjasbf"
-        app:layout_constraintTop_toTopOf="@id/IvCard"
+        android:maxLines="3"
         android:paddingVertical="50dp"
-        android:paddingLeft="10dp"
-        app:layout_constraintStart_toEndOf="@id/IvCard"
+        android:paddingStart="10dp"
         android:textColor="@color/beta"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/IvCard"
+        app:layout_constraintTop_toTopOf="@id/IvCard" />
 
     <ImageView
 
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:elevation="20dp"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="15dp"
-        app:layout_constraintTop_toBottomOf="@id/tvMovieName"
+        android:elevation="20dp"
         android:src="@drawable/ic_star_list"
         app:layout_constraintStart_toEndOf="@id/IvCard"
-        >
+        app:layout_constraintTop_toBottomOf="@id/tvMovieName">
 
     </ImageView>
+
     <TextView
         android:id="@+id/TvVoteText"
         android:layout_width="25dp"
         android:layout_height="20dp"
-        android:elevation="20dp"
-        android:text="aklfmklaf"
-        android:textAlignment="center"
-        android:fontFamily="@font/patela"
-        android:textColor="@color/beta"
         android:layout_marginHorizontal="40dp"
         android:layout_marginVertical="15dp"
-        app:layout_constraintTop_toBottomOf="@id/tvMovieName"
+        android:elevation="20dp"
+        android:fontFamily="@font/patela"
         android:src="@drawable/ic_star_list"
+        android:textAlignment="center"
+        android:textColor="@color/beta"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@id/IvCard"
-        >
+        app:layout_constraintTop_toBottomOf="@id/tvMovieName">
 
     </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

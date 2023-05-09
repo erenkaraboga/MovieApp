@@ -1,4 +1,4 @@
-package com.example.movie_application_eren_karaboga.presentation.movieList
+package com.example.movie_application_eren_karaboga.presentation.dashboard
 
 import com.example.movie_application_eren_karaboga.base.utils.Result
 
@@ -14,9 +14,9 @@ import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.utils.Constants
 import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.databinding.FragmentDashboardBinding
-import com.example.movie_application_eren_karaboga.presentation.dashboard.DashboardViewModel
 import com.example.movie_application_eren_karaboga.presentation.dashboard.adapter.DashboardAdapter
 import com.example.movie_application_eren_karaboga.presentation.details.DetailsFragment
+import com.example.movie_application_eren_karaboga.presentation.movieList.MovieListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

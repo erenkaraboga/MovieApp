@@ -30,7 +30,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/IvBackk"
+        android:id="@+id/baseCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -65,7 +65,7 @@
         android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/IvBackk" />
+        app:layout_constraintTop_toBottomOf="@+id/baseCard" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

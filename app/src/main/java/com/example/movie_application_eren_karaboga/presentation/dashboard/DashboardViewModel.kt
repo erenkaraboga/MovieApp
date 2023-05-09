@@ -9,6 +9,7 @@ import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.example.movie_application_eren_karaboga.base.utils.Result
+
 @HiltViewModel
 class DashboardViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
@@ -23,8 +24,11 @@ class DashboardViewModel @Inject constructor(private val movieRepository: MovieR
         return movieListMap[type]!!
     }
 
-     fun loadMovieData(type: String) {
-        movieRepository.getMovieList(type, movieListMap[type] as MutableLiveData<Result<MovieResult>>)
+    fun loadMovieData(type: String) {
+        movieRepository.getMovieList(
+            type,
+            movieListMap[type] as MutableLiveData<Result<MovieResult>>
+        )
     }
 
     /* private var movieListPopular: LiveData<Result<MovieResult>> = MutableLiveData()

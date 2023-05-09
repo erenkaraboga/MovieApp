@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface MovieInterface {
 
     @GET("movie/{type}")
-    fun getMovieList(@Path("type") type: String):  Call<MovieResult>
+    fun getMovieList(@Path("type") type: String): Call<MovieResult>
 
 
     @GET("movie/{movie_id}")

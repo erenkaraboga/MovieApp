@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.movie_application_eren_karaboga.databinding.ActivityMainBinding
-import com.example.movie_application_eren_karaboga.presentation.movieList.DashboardFragment
+import com.example.movie_application_eren_karaboga.presentation.dashboard.DashboardFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
