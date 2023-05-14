@@ -31,25 +31,4 @@ class DashboardViewModel @Inject constructor(private val movieRepository: MovieR
         )
     }
 
-    /* private var movieListPopular: LiveData<Result<MovieResult>> = MutableLiveData()
-     private var movieUpComingList: LiveData<Result<MovieResult>> = MutableLiveData()
-     private var movieTopRatedList: LiveData<Result<MovieResult>> = MutableLiveData()
-
-
-     fun getObserverLiveData(): LiveData<Result<MovieResult>> = movieListPopular
-     fun getObserverLiveDataUpComing(): LiveData<Result<MovieResult>> = movieUpComingList
-     fun getObserverLiveDataTopRated(): LiveData<Result<MovieResult>> = movieTopRatedList
-
-     fun loadPopularData(type: String) = movieRepository.getPopularMovies(
-         type,
-         movieListPopular as MutableLiveData<Result<MovieResult>>
-     )
-     fun loadUpComingData(type: String) = movieRepository.getPopularMovies(
-         type,
-         movieUpComingList as MutableLiveData<Result<MovieResult>>
-     )
-     fun loadTopRatedData(type: String) = movieRepository.getPopularMovies(
-         type,
-         movieTopRatedList as MutableLiveData<Result<MovieResult>>
-     )*/
 }

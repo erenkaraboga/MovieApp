@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.movie_application_eren_karaboga.presentation.video.VideoFragment
+import com.example.movie_application_eren_karaboga.presentation.details.adapter.VideoAdapter
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.base.utils.Constants
@@ -17,6 +19,8 @@ import com.example.movie_application_eren_karaboga.databinding.FragmentDetailsBi
 import com.example.movie_application_eren_karaboga.presentation.details.adapter.GenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.movie_application_eren_karaboga.base.utils.Result
+import com.example.movie_application_eren_karaboga.data.models.MovieVideoModel
+import com.example.movie_application_eren_karaboga.presentation.details.adapter.MovieAdapterListener
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -25,7 +29,7 @@ class DetailsFragment : Fragment() {
     private var movieId: Int = 0
     private val viewModel by viewModels<MovieDetailViewModel>()
     private lateinit var genreAdapter: GenreAdapter
-
+    private lateinit var videoAdapter: VideoAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         movieId = arguments?.getInt(Constants.MOVIE_ID)!!
@@ -36,7 +40,7 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        binding.IvBack. setOnClickListener {
+        binding.IvBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
         bindViewModel(movieId)
@@ -46,7 +50,6 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setAdapter()
         setRecyclerView()
-
     }
 
     private fun setRecyclerView() {
@@ -54,7 +57,13 @@ class DetailsFragment : Fragment() {
             context,
             LinearLayoutManager.HORIZONTAL, false
         )
+        val managerVideo = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL, false
+        )
+        val recyclerViewVideo = binding.videosRecyclerView
         val recyclerView = binding.genreRecyclerView
+        recyclerViewVideo.layoutManager = managerVideo
         recyclerView.adapter = genreAdapter
         recyclerView.layoutManager = manager
     }
@@ -75,11 +84,11 @@ class DetailsFragment : Fragment() {
                     binding.TvGenre.text = movieDetail.originalLanguage
                     binding.TvDescMovie.text = movieDetail.overview
                     Glide.with(binding.IvPoster)
-                            .load(movieDetail.posterPath.loadFullImage())
-                            .placeholder(R.drawable.loading_image)
-                            .error(R.drawable.error_image)
-                            .transform(CenterInside(), RoundedCorners(30))
-                            .into(binding.IvPoster)
+                        .load(movieDetail.posterPath.loadFullImage())
+                        .placeholder(R.drawable.loading_image)
+                        .error(R.drawable.error_image)
+                        .transform(CenterInside(), RoundedCorners(30))
+                        .into(binding.IvPoster)
                 }
                 is Result.Error -> {
 
@@ -87,6 +96,41 @@ class DetailsFragment : Fragment() {
 
             }
         }
+        viewModel.getObserverLiveDataVideo().observe(viewLifecycleOwner) { movieVideosResult ->
+            when (movieVideosResult) {
+                is Result.Success -> {
+                    val response = movieVideosResult.data
+                    val videoList = arrayListOf<MovieVideoModel>()
+                    if (response != null) {
+                        for (video in response.results) {
+                            if (video.site == "YouTube") {
+                                videoList.add(video)
+                            }
+                        }
+                        videoAdapter = VideoAdapter(videoList,
+                            object : MovieAdapterListener {
+                                override fun onClickedItem(position: Int) {
+                                    navigateDetailPage(videoList, position)
+                                }
+
+                            })
+                        binding.videosRecyclerView.adapter = videoAdapter
+                    }
+                }
+                is Result.Error -> {
+
+                }
+            }
+        }
+        viewModel.getMovieVideos(movieId)
         viewModel.getMovieDetail(movieId)
+    }
+
+    private fun navigateDetailPage(videoList: List<MovieVideoModel>, position: Int) {
+        val movieDetailFragment = VideoFragment(videoList, position)
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.activity_main, movieDetailFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

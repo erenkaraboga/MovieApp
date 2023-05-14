@@ -5,6 +5,7 @@ import com.example.movie_application_eren_karaboga.data.models.MovieDetail
 import com.example.movie_application_eren_karaboga.data.models.MovieResult
 import com.example.movie_application_eren_karaboga.data.remote.service.MovieInterface
 import com.example.movie_application_eren_karaboga.base.utils.Result
+import com.example.movie_application_eren_karaboga.data.models.MovieVideoResponseModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,10 +16,9 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
         movieInterface.getMovieList(type).enqueue(object : Callback<MovieResult> {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
 
-                if(response.body()!=null){
+                if (response.body() != null) {
                     liveData.postValue(Result.Success(response.body()))
-                }
-                else{
+                } else {
                     liveData.postValue(Result.Error("Error"))
                 }
             }
@@ -29,13 +29,12 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
         })
     }
 
-    fun getMovieDetail(movieId: Int, liveData:  MutableLiveData<Result<MovieDetail>>) {
+    fun getMovieDetail(movieId: Int, liveData: MutableLiveData<Result<MovieDetail>>) {
         movieInterface.getMovieDetail(movieId).enqueue(object : Callback<MovieDetail> {
             override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
-                if(response.body()!=null){
+                if (response.body() != null) {
                     liveData.postValue(Result.Success(response.body()))
-                }
-                else{
+                } else {
                     liveData.postValue(Result.Error("Error"))
                 }
             }
@@ -45,13 +44,13 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
             }
         })
     }
-    fun searchMovie(query:String, liveData: MutableLiveData<Result<MovieResult>>){
-        movieInterface.searchMovie(query).enqueue(object:Callback<MovieResult>{
+
+    fun searchMovie(query: String, liveData: MutableLiveData<Result<MovieResult>>) {
+        movieInterface.searchMovie(query).enqueue(object : Callback<MovieResult> {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
-                if(response.body()!=null){
+                if (response.body() != null) {
                     liveData.postValue(Result.Success(response.body()))
-                }
-                else{
+                } else {
                     liveData.postValue(Result.Error("Error"))
                 }
             }
@@ -60,6 +59,27 @@ class MovieRepository @Inject constructor(private val movieInterface: MovieInter
                 liveData.postValue(Result.Error(t.message ?: "Unknown Error"))
             }
         })
+    }
+
+    fun getMovieVideos(movieId: Int, liveData: MutableLiveData<Result<MovieVideoResponseModel>>) {
+        movieInterface.getMovieVideos(movieId)
+            .enqueue(object : Callback<MovieVideoResponseModel> {
+                override fun onResponse(
+                    call: Call<MovieVideoResponseModel>,
+                    response: Response<MovieVideoResponseModel>,
+                ) {
+
+                    if (response.body() != null) {
+                        liveData.postValue(Result.Success(response.body()))
+                    } else {
+                        liveData.postValue(Result.Error("Error"))
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieVideoResponseModel>, t: Throwable) {
+                    liveData.postValue(Result.Error(t.message ?: "Unknown Error"))
+                }
+            })
     }
 
 
