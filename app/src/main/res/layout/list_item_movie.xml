@@ -39,7 +39,8 @@
 
             android:id="@+id/IvMovie"
             android:layout_width="100dp"
-            android:layout_height="150dp" />
+            android:layout_height="150dp"
+            android:scaleType="centerCrop" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView

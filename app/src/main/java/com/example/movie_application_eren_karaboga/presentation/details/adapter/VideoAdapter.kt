@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie_application_eren_karaboga.data.models.MovieVideoModel
+import com.example.movie_application_eren_karaboga.databinding.GenreItemBinding
 import com.example.movie_application_eren_karaboga.databinding.SearchItemBinding
 
 class VideoAdapter(
@@ -16,7 +17,7 @@ class VideoAdapter(
         parent: ViewGroup,
         viewType: Int,
     ): MovieVideViewHolder {
-        val binding = SearchItemBinding.inflate(
+        val binding = GenreItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return MovieVideViewHolder(binding, listener)
@@ -29,7 +30,7 @@ class VideoAdapter(
 }
 
 class MovieVideViewHolder(
-    private val binding: SearchItemBinding,
+    private val binding: GenreItemBinding,
     private val listener: MovieAdapterListener,
 ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
