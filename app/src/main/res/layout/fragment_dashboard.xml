@@ -35,14 +35,13 @@
                 android:id="@+id/IvSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:clickable="true"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/TvPopular"
+                app:layout_constraintBottom_toBottomOf="@+id/TvWelcome"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.908"
-                app:layout_constraintStart_toEndOf="@+id/TvWelcome"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="@+id/TvWelcome">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -68,14 +67,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/TvWelcome" />
 
             <TextView
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp"
                 android:id="@+id/TvPopularMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/droid_bold"
                 android:text="@string/see_more"
+
                 android:textColor="@color/star_orange"
                 android:textSize="15sp"
+                android:clickable="true"
+
                 app:layout_constraintBottom_toBottomOf="@+id/TvPopular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/TvPopular" />
@@ -103,10 +107,13 @@
             <TextView
                 android:id="@+id/TvTopRatedMore"
                 android:layout_width="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/droid_bold"
                 android:text="@string/see_more"
+                android:clickable="true"
                 android:textColor="@color/star_orange"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/TvTopRated"
@@ -139,6 +146,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp"
+                android:clickable="true"
                 android:fontFamily="@font/droid_bold"
                 android:text="@string/see_more"
                 android:textColor="@color/star_orange"
@@ -152,10 +162,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/TvUpcoming"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/TvUpcoming" />
+
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

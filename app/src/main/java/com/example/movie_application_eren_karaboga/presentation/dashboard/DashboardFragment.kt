@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movie_application_eren_karaboga.R
@@ -93,57 +94,16 @@ class DashboardFragment : Fragment() {
     ) {
         when (result) {
             is Result.Success -> {
+                binding.progressBar.visibility = View.GONE
                 val movieList = result.data!!.results
                 adapter.setList(movieList)
             }
             is Result.Error -> {
-                println(result.message)
+                Toast.makeText(context, result.message, Toast.LENGTH_SHORT).show()
             }
             else -> {}
         }
     }
-
-   /* private fun bindViewModel() {
-        viewModel.getObserverLiveData().observe(
-            viewLifecycleOwner
-        ) { result ->
-            when (result) {
-                is Result.Success -> {
-                    val movieList = result.data!!.results
-                    movieAdapter.setList(movieList)
-                }
-                is Result.Error -> {
-                    println(result.message)
-                }
-            }
-        }
-        viewModel.getObserverLiveDataUpComing().observe(
-            viewLifecycleOwner
-        ) { result ->
-            when (result) {
-                is Result.Success -> {
-                    val movieList = result.data!!.results
-                    movieAdapterUpComing.setList(movieList)
-                }
-                is Result.Error -> {
-                    println(result.message)
-                }
-            }
-        }
-        viewModel.getObserverLiveDataTopRated().observe(
-            viewLifecycleOwner
-        ) { result ->
-            when (result) {
-                is Result.Success -> {
-                    val movieList = result.data!!.results
-                    movieAdapterTopRated.setList(movieList)
-                }
-                is Result.Error -> {
-                    println(result.message)
-                }
-            }
-        }
-    }*/
 
 
     private fun initRecyclerView() {

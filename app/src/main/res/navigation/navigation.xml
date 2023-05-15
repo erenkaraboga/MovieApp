@@ -9,7 +9,7 @@
         android:id="@+id/movieFragment"
         android:name="com.example.movie_application_eren_karaboga.presentation.movieList.MovieListFragment"
         android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie" >
+        tools:layout="@layout/fragment_movie_list" >
         <action
             android:id="@+id/action_movieFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />

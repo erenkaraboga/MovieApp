@@ -11,7 +11,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.movie_application_eren_karaboga.R
 import com.example.movie_application_eren_karaboga.base.extensions.loadFullImage
 import com.example.movie_application_eren_karaboga.data.models.Movie
-import com.example.movie_application_eren_karaboga.databinding.MovieDashItemBinding
+import com.example.movie_application_eren_karaboga.databinding.ListItemDashboardBinding
+
 
 class DashboardAdapter(private val listener: OnClickListener) :
     RecyclerView.Adapter<DashboardAdapter.MyCustomHolder>() {
@@ -25,7 +26,7 @@ class DashboardAdapter(private val listener: OnClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomHolder {
         val binding =
-            MovieDashItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ListItemDashboardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyCustomHolder(listener, binding)
 
     }
@@ -38,7 +39,7 @@ class DashboardAdapter(private val listener: OnClickListener) :
 
     class MyCustomHolder(
         private val listener: OnClickListener,
-        private val binding: MovieDashItemBinding,
+        private val binding: ListItemDashboardBinding,
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         private lateinit var movie: Movie
